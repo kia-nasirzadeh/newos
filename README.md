@@ -14,7 +14,7 @@ now set profiles:
 
 for powershell: `C:\Users\kia-nasirzadeh\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1`
 
-for ubuntu: ``
+for ubuntu: `/home/<user-name>/.bashrc`
 
 ## 4- active builtin administrator account
 
