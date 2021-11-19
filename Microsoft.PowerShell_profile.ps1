@@ -97,3 +97,10 @@ function chr {
     $path = $env:ProgramFiles + "\Google\Chrome\Application\chrome.exe";
     Start-Process $path;
 }
+
+function todo {
+    $path = $env:ProgramFiles + "\Typora\Typora.exe";
+    $todoFile = $HOME + "\Documents\todo.md";
+    Start-Process $path $todoFile | Out-Null;
+}
+
