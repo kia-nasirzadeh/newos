@@ -125,3 +125,12 @@ function tit () {
   TITLE="\[\e]2;$*\a\]"
   PS1="${ORIG}${TITLE}"
 }
+
+cdt () {
+    if [[ "$1" = "das" ]]
+    then
+        cd "/var/www/html";
+    else
+        echo 'no such an arg !';
+    fi
+}
