@@ -94,13 +94,22 @@ function tit {
     $Host.UI.RawUI.WindowTitle = $title;
 }
 function chr {
-    $path = $env:ProgramFiles + "\Google\Chrome\Application\chrome.exe";
-    Start-Process $path;
+    param (
+        [switch] $colife
+    )
+    $chrome_exe = $env:ProgramFiles + "\Google\Chrome\Application\chrome.exe";
+    $work_link_1 = "https://web.whatsapp.com/";
+    $work_link_2 = "https://gitlab.testprojects.ir/root/colife-backend/-/tree/main";
+    $work_link_3 = "https://colife-labs.atlassian.net/jira/software/projects/COL/boards/1";
+    if ($colife) {
+        Start-Process -FilePath $chrome_exe -ArgumentList $work_link_1,$work_link_2,$work_link_3
+    }
+    else {
+        Start-Process $chrome_exe;
+    }
 }
-
 function todo {
     $path = $env:ProgramFiles + "\Typora\Typora.exe";
     $todoFile = $HOME + "\Documents\todo.md";
     Start-Process $path $todoFile | Out-Null;
 }
-
