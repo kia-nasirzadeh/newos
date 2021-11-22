@@ -130,6 +130,9 @@ cdt () {
     if [[ "$1" = "das" ]]
     then
         cd "/var/www/html";
+    elif [[ "$1" = "dow" ]]
+    then
+        cd "/mnt/c/Users/kia-nasirzadeh/Downloads"
     else
         echo 'no such an arg !';
     fi
