@@ -1,115 +1,166 @@
-$global:dashboardPath = "C:\Users\kia-nasirzadeh\Desktop\dashboard";
-function kia-help () {
-    echo "
-    config -user
-    cdt -das -des
-    exp
-    tit
-    chr
-    edi -typora -code
-    key
-    ";
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}💀💀💀💀💀💀💀💀💀💀💀💀💀💀💀💀💀💀💀\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# function to set terminal title
+function tit () {
+  if [[ -z "$ORIG" ]]; then
+    ORIG="$PS1"
+  fi
+  TITLE="\[\e]2;$*\a\]"
+  PS1="${ORIG}${TITLE}"
 }
-function key () {
-    $path = $HOME + "\Documents\keyboard.ahk";
-    Start-Process $path;
-}
-function edi {
-    param (
-        [switch] $code,
-        [string] $typora
-    )
-    if ($code) {
+
+project () {
+    if [[ "$1" = "checker" ]]
+    then
+        powershell.exe -Command "Start-Process -FilePath 'C:\Program Files\Google\Chrome\Application\chrome.exe' -ArgumentList 'checker.ir','https://article-world.ir/wp-admin/post.php?post=1123&action=edit','https://article-world.ir/wp-admin/post.php?post=1060&action=edit'"
+        cd "/var/www/checker.ir/public_html/";
         code .;
-    } elseif ($typora) {
-        $path = $env:ProgramFiles + "\Typora\Typora.exe";
-        Start-Process $typora | Out-Null;
-    }
+        tit checker;
+        clear;
+        echo '1 - set windows hosts file:';
+        hostname -I;
+        echo '2 - start apache';
+    else
+        echo 'no such an arg ! ';
+    fi
 }
-function exp () {
-    explorer.exe .;
+
+cdt () {
+    if [[ "$1" = "das" ]]
+    then
+        cd "/var/www/";
+    elif [[ "$1" = "checker" ]]
+    then
+        cd "/var/www/checker.ir/public_html/";
+        code .;
+    else
+        echo 'no such an arg !';
+    fi
 }
-function cdt {
-    param(
-        [switch] $das,
-        [switch] $des,
-        [switch] $dow,
-        [switch] $exp,
-        [switch] $doc
-    )
-    if ($das) {
-        cd $dashboardPath;
-    } elseif ($des) {
-        $path = $HOME + "\Desktop";
-        cd $path;
-    } elseif ($dow) {
-        $path = $HOME + "\Downloads";
-        cd $path;
-    } elseif ($doc) {
-        $path = $HOME + "\Documents";
-        cd $path;
-    }
 
-    if ($exp) { exp; }
+exp () {
+    explorer.exe .
 }
-function kia-get-control ($path) {
-    # for example $path="D:\Windows.old"
-    $acl = Get-Acl $path
 
-    # get sid of LOCAL SERVICE:
-    # $sid = New-Object System.Security.Principal.SecurityIdentifier("S-1-5-19")
-    # $localServiceName = ($sid.Translate([System.Security.Principal.NTAccount])).Value
-    # $user = $localServiceName;
-
-    # get osid of a user e.g. kia-nasirzadeh (which is kia-desktop\kia-nasirzadeh):
-    # $username = 'kia-nasirzadeh';
-    # $sid = New-Object System.Security.Principal.NTAccount($username)
-    # $localServiceName = $sid.Translate([System.Security.Principal.SecurityIdentifier]);
-    # $localServiceName = $localServiceName.Value;
-    # $sid = $localServiceName;
-    # $osid = New-Object System.Security.Principal.SecurityIdentifier($sid);
-    # $user = $osid.Translate([System.Security.Principal.NTAccount]);
-    # $user = $user.Value;
-
-    # get osid of SYSTEM:
-    # $sid = "SYSTEM";
-    # $user = $sid;
-
-    # get osid of Administrator:
-    # $user = "Administrator";
-
-    $permission = $user,"FullControl","ContainerInherit, ObjectInherit","None","Allow"
-    $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($permission)
-    try {
-        $acl.SetAccessRule($accessRule)
-    } catch {
-        Write-Host "the error is $_"
-    }
-    $acl | Set-Acl $path
-}
-function tit {
-    param (
-        [string] $title
-    )
-    $Host.UI.RawUI.WindowTitle = $title;
-}
-function chr {
-    param (
-        [switch] $colife
-    )
-    $chrome_exe = $env:ProgramFiles + "\Google\Chrome\Application\chrome.exe";
-    $work_link_1 = "https://web.whatsapp.com/";
-    $work_link_2 = "https://gitlab.testprojects.ir/root/colife-backend/-/tree/main";
-    $work_link_3 = "https://colife-labs.atlassian.net/jira/software/projects/COL/boards/1";
-    if ($colife) {
-        Start-Process -FilePath $chrome_exe -ArgumentList $work_link_1,$work_link_2,$work_link_3
-    }
-    else {
-        Start-Process $chrome_exe;
-    }
-}
-function todo {
-    $path = $env:ProgramFiles + "\Typora\Typora.exe";
-    $todoFile = $HOME + "\Documents\todo.md";
-    Start-Process $path $todoFile | Out-Null;
+editprofile () {
+    cd "/home/k-ubuntu";
+    code .;
+    powershell.exe -Command "Start-Process -FilePath 'C:\Program Files\Google\Chrome\Application\chrome.exe' -ArgumentList 'https://github.com/kia-nasirzadeh/newos'";
 }
