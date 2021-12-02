@@ -98,7 +98,10 @@ function tit {
 }
 function chr {
     param (
-        [switch] $colife
+        [switch] $colife,
+        [switch] $colifeApi,
+        [switch] $colifeMeeting,
+        [switch] $colifeJira
     )
     $chrome_exe = $env:ProgramFiles + "\Google\Chrome\Application\chrome.exe";
     $work_link_1 = "https://web.whatsapp.com/";
@@ -107,10 +110,16 @@ function chr {
     $work_link_4 = "https://www.figma.com/files/team/1026457890217412235/Co-Life?fuid=1043898222873738095"
     $work_link_5 = "http://app.colifelabs.net/";
     $work_link_6 = "https://api.colifelabs.net/";
+    $work_link_7 = "https://meet.google.com/ouu-hbof-oyk";
     if ($colife) {
-        Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_1,$work_link_2,$work_link_3,$work_link_4,$work_link_5,$work_link_6;
-    }
-    else {
+        Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_1,$work_link_2,$work_link_3,$work_link_4,$work_link_5;
+    } elseif ($colifeApi) {
+        Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_6;
+    } elseif ($colifeMeeting) {
+        Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_7;
+    } elseif ($colifeJira) {
+        Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_2;
+    } else {
         Start-Process $chrome_exe;
     }
 }
