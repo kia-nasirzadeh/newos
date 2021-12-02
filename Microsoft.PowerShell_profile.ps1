@@ -118,7 +118,7 @@ function chr {
     } elseif ($colifeMeeting) {
         Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_7;
     } elseif ($colifeJira) {
-        Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_2;
+        Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_3;
     } else {
         Start-Process $chrome_exe;
     }
