@@ -101,7 +101,8 @@ function chr {
         [switch] $colife,
         [switch] $colifeApi,
         [switch] $colifeMeeting,
-        [switch] $colifeJira
+        [switch] $colifeJira,
+        [switch] $dillinger
     )
     $chrome_exe = $env:ProgramFiles + "\Google\Chrome\Application\chrome.exe";
     $work_link_1 = "https://web.whatsapp.com/";
@@ -111,6 +112,7 @@ function chr {
     $work_link_5 = "http://app.colifelabs.net/";
     $work_link_6 = "https://api.colifelabs.net/";
     $work_link_7 = "https://meet.google.com/ouu-hbof-oyk";
+    $work_link_8 = "https://dillinger.io/";
     if ($colife) {
         Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_1,$work_link_2,$work_link_3,$work_link_4,$work_link_5;
     } elseif ($colifeApi) {
@@ -119,6 +121,8 @@ function chr {
         Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_7;
     } elseif ($colifeJira) {
         Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_3;
+    } elseif ($dillinger) {
+        Start-Process -FilePath $chrome_exe -ArgumentList "--new-window",$work_link_8;
     } else {
         Start-Process $chrome_exe;
     }
