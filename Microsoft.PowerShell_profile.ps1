@@ -137,3 +137,7 @@ function editProfile () {
     edi -code;
     Start-Process -FilePath 'C:\Program Files\Google\Chrome\Application\chrome.exe' -ArgumentList 'https://github.com/kia-nasirzadeh/newos';
 }
+
+function c () {
+    Clear-Host;
+}
