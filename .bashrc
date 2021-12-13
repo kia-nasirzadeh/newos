@@ -137,3 +137,9 @@ cdt () {
         echo 'no such an arg !';
     fi
 }
+
+editprofile () {
+    cd "/home/kia-nasirzadeh/";
+    code .;
+    powershell.exe -Command "& { Start-Process -FilePath 'C:\Program Files\Google\Chrome\Application\chrome.exe' -ArgumentList 'https://github.com/kia-nasirzadeh/newos'; }"
+}
