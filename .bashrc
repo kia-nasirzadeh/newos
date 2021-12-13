@@ -143,3 +143,7 @@ editprofile () {
     code .;
     powershell.exe -Command "& { Start-Process -FilePath 'C:\Program Files\Google\Chrome\Application\chrome.exe' -ArgumentList 'https://github.com/kia-nasirzadeh/newos'; }"
 }
+
+c () {
+    clear;
+}
